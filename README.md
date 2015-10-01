@@ -69,7 +69,7 @@ Options:
 
 ### Use another wiki
 
-To get exerpts from another wiki use the -u flag to give another url to the
+To get excerpts from another wiki use the -u flag to give another url to the
 API to use.
 
 ```shell
@@ -77,6 +77,21 @@ $ wiki -u https://en.wikiversity.org/w/api.php physics
 ```
 
 This gives the excerpt from the wiki at wikiversity.org instead of Wikipedia.
+
+#### Advice
+
+If you frequently use the tool to fetch data from a custom url, add an alias.
+E.g. for bash. Add an alias to your `.bash_profile` or `.bashrc` file.
+
+```bash
+alias uwiki='wiki -u https://en.wikiversity.org/w/api.php '
+```
+
+And call it using
+
+```shell
+$ uwiki physics
+```
 
 ## Testing
 
