@@ -1,6 +1,7 @@
 package wiki
 
 import (
+	"net/url"
 	"time"
 )
 
@@ -29,11 +30,15 @@ func (r *Response) Page() (*Page, error) {
 	}
 
 	for _, p := range r.Query.Pages {
+		url, err := url.QueryUnescape(p.Canonicalurl)
+		if err != nil {
+			url = p.Canonicalurl
+		}
 		page.ID = p.Pageid
 		page.Title = p.Title
 		page.Content = p.Extract
 		page.Language = p.Pagelanguage
-		page.URL = p.Canonicalurl
+		page.URL = url
 
 		break
 	}
