@@ -7,7 +7,7 @@
 
 Command line tool to get Wikipedia summaries.
 
-The tool can fetch summaries from any Mediawiki wiki with the API active, but
+The tool can fetch summaries from any MediaWiki wiki with the API active, but
 defaults to the English Wikipedia.
 
 ## Installation
