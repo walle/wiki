@@ -23,7 +23,7 @@ const (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, `wiki is a tool used to fetch exerpts from wikipedia
+		fmt.Fprintln(os.Stderr, `wiki is a tool used to fetch excerpts from wikipedia
 Usage: wiki [options...] query
 Options:
 `)
