@@ -40,6 +40,13 @@ To get a summary from Wikipedia in English just invoke the tool with a query.
 
 ```shell
 $ wiki golang
+Redirected from Golang to Go (programming language)
+
+Go, also commonly referred to as golang, is a programming language developed at Google in 2007 by Robert Griesemer, Rob Pike, and Ken Thompson. It is a statically typed language with syntax loosely derived from that of C, adding garbage collection, type safety, some structural typing capabilities, additional built-in types such as variable-length arrays & key-value maps, and a large standard library.
+The language was announced in November 2009 and is now used in some of Google's production systems. Go's "gc" compiler targets the Linux, OS X, FreeBSD, NetBSD, OpenBSD, Plan 9, DragonFly BSD, Solaris, and Windows operating systems and the i386, Amd64, ARM and IBM POWER processor architectures. A second compiler, gccgo, is a GCC frontend.
+Android support was added in version 1.4, which has since been ported to also run on iOS.
+
+Read more: https://en.wikipedia.org/wiki/Go_(programming_language)
 ```
 
 To get a localized result, e.g. in Swedish use the -l flag.
