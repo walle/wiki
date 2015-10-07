@@ -1,6 +1,7 @@
 package wiki
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -43,8 +44,17 @@ func NewRequest(baseURL, query, language string) (*Request, error) {
 
 // Execute fetches the data and decodes it into a Response.
 // Returns an error if the data could not be retrived or the decoding fails.
-func (r *Request) Execute() (*Response, error) {
-	data, err := http.Get(r.String())
+func (r *Request) Execute(noCheckCert bool) (*Response, error) {
+	client := &http.Client{}
+
+	if noCheckCert {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client = &http.Client{Transport: tr}
+	}
+
+	data, err := client.Get(r.String())
 	if err != nil {
 		return nil, err
 	}

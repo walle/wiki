@@ -34,6 +34,11 @@ Options:
 	url := flag.String("u", "https://%s.wikipedia.org/w/api.php", "The api url")
 	noColor := flag.Bool("n", false, "If the output should not be colorized")
 	simple := flag.Bool("s", false, "If simple output should be used")
+	noCheckCert := flag.Bool(
+		"no-check-certificate",
+		false,
+		"Skip verification of certificates",
+	)
 	help := flag.Bool("h", false, "Print help information and exit.")
 	version := flag.Bool("version", false, "Print version information and exit.")
 
@@ -56,7 +61,7 @@ Options:
 		os.Exit(UsageErrorExitStatus)
 	}
 
-	page := getPage(url, language)
+	page := getPage(url, language, noCheckCert)
 
 	if page.Content == "" {
 		fmt.Fprintf(os.Stderr, "No such page\n")
@@ -77,7 +82,7 @@ Options:
 	os.Exit(SuccessExitStatus)
 }
 
-func getPage(url, language *string) *wiki.Page {
+func getPage(url, language *string, noCheckCert *bool) *wiki.Page {
 	query := strings.Title(strings.Join(flag.Args(), " "))
 	req, err := wiki.NewRequest(*url, query, *language)
 	if err != nil {
@@ -85,7 +90,7 @@ func getPage(url, language *string) *wiki.Page {
 		os.Exit(RequestErrorExitStatus)
 	}
 
-	resp, err := req.Execute()
+	resp, err := req.Execute(*noCheckCert)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Could not execute request %s\n", err)
 		os.Exit(RequestErrorExitStatus)

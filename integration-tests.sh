@@ -104,4 +104,17 @@ if [ $? -ne 0 ];then
 fi
 pass
 
+# Test that no-check-certificate flag works
+OUTPUT="$($BIN -no-check-certificate golang)"
+STATUS=$?
+if [[ $STATUS -ne 0 ]]; then
+  fail 'Did not get success exit code'
+  exit 1
+fi
+echo "$OUTPUT" | grep -q "Read more: https://en.wikipedia.org/wiki/Go"
+if [ $? -ne 0 ];then
+  fail 'Standard usage did not output link to page' 
+fi
+pass
+
 finished
