@@ -83,7 +83,7 @@ Options:
 }
 
 func getPage(url, language *string, noCheckCert *bool) *wiki.Page {
-	query := strings.Title(strings.Join(flag.Args(), " "))
+	query := strings.Join(flag.Args(), " ")
 	req, err := wiki.NewRequest(*url, query, *language)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Could not create request %s\n", err)
