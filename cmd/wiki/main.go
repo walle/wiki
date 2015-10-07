@@ -33,8 +33,18 @@ Options:
 		flag.PrintDefaults()
 	}
 
-	language := flag.String("l", "en", "The language to use")
-	url := flag.String("u", "https://%s.wikipedia.org/w/api.php", "The api url")
+	def_lang := os.Getenv("WIKI_LANG")
+	def_url := os.Getenv("WIKI_URL")
+
+	if def_lang == "" {
+		def_lang = "en"
+	}
+	if def_url == "" {
+		def_url = "https://%s.wikipedia.org/w/api.php"
+	}
+
+	language := flag.String("l", def_lang, "The language to use")
+	url := flag.String("u", def_url, "The api url")
 	noColor := flag.Bool("n", false, "If the output should not be colorized")
 	simple := flag.Bool("s", false, "If simple output should be used")
 	short := flag.Bool("short", false, "If short output should be used")
