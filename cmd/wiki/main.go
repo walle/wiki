@@ -34,6 +34,7 @@ Options:
 	url := flag.String("u", "https://%s.wikipedia.org/w/api.php", "The api url")
 	noColor := flag.Bool("n", false, "If the output should not be colorized")
 	simple := flag.Bool("s", false, "If simple output should be used")
+	short := flag.Bool("short", false, "If short output should be used")
 	noCheckCert := flag.Bool(
 		"no-check-certificate",
 		false,
@@ -73,6 +74,8 @@ Options:
 
 	if *simple {
 		printPageSimple(page)
+	} else if *short {
+		printPageShort(page)
 	} else if *noColor {
 		printPagePlain(page)
 	} else {
@@ -118,6 +121,10 @@ func printPagePlain(page *wiki.Page) {
 
 func printPageSimple(page *wiki.Page) {
 	fmt.Println(page.Content)
+}
+
+func printPageShort(page *wiki.Page) {
+	fmt.Println(page.Content[:strings.Index(page.Content, ".")+1])
 }
 
 func printPageColor(page *wiki.Page) {

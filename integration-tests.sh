@@ -117,4 +117,17 @@ if [ $? -ne 0 ];then
 fi
 pass
 
+# Test that short flag works
+OUTPUT="$($BIN -short golang)"
+STATUS=$?
+if [[ $STATUS -ne 0 ]]; then
+  fail 'Did not get success exit code'
+  exit 1
+fi
+OUTPUT2="echo "$OUTPUT" | grep -c '.'"
+if [ $OUTPUT2 -ne 1 ];then
+  fail 'Short flag did not work' 
+fi
+pass
+
 finished
