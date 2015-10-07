@@ -67,7 +67,11 @@ Options:
   -l string
         The language to use (default "en")
   -n    If the output should not be colorized
+  -no-check-certificate
+        Skip verification of certificates
   -s    If simple output should be used
+  -short
+        If short output should be used
   -u string
         The api url (default "https://%s.wikipedia.org/w/api.php")
   -version
