@@ -48,7 +48,7 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "Read more: https://en.wikipedia.org/wiki/Go"
 if [ $? -ne 0 ];then
-  fail 'Standard usage did not output link to page' 
+  fail 'Standard usage did not output link to page'
 fi
 pass
 
@@ -61,7 +61,7 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "Read more: https://en.wikipedia.org/wiki/Go"
 if [ $? -eq 0 ];then
-  fail 'Short flag did output link to page' 
+  fail 'Short flag did output link to page'
 fi
 pass
 
@@ -74,7 +74,20 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "Read more: https://sv.wikipedia.org/wiki/C"
 if [ $? -ne 0 ];then
-  fail 'Language flag did not work' 
+  fail 'Language flag did not work'
+fi
+pass
+
+# Test that language enviroment works
+OUTPUT="$(WIKI_LANG=sv $BIN c++)"
+STATUS=$?
+if [[ $STATUS -ne 0 ]]; then
+  fail 'Did not get success exit code'
+  exit 1
+fi
+echo "$OUTPUT" | grep -q "Read more: https://sv.wikipedia.org/wiki/C"
+if [ $? -ne 0 ];then
+  fail 'Language flag did not work'
 fi
 pass
 
@@ -87,7 +100,7 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "\[32m"
 if [ $? -eq 0 ];then
-  fail 'No color flag did not work' 
+  fail 'No color flag did not work'
 fi
 pass
 
@@ -100,7 +113,20 @@ if [[ $STATUS -eq 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "Could not execute request Get http://localhost:8080"
 if [ $? -ne 0 ];then
-  fail 'Url flag did not work' 
+  fail 'Url flag did not work'
+fi
+pass
+
+#Test URL passed as enviroment
+OUTPUT="$(WIKI_URL=http://localhost:8080/w/api.php $BIN golang 2>&1)"
+STATUS=$?
+if [[ $STATUS -eq 0 ]]; then
+  fail 'Got success exit code'
+  exit 1
+fi
+echo "$OUTPUT" | grep -q "Could not execute request Get http://localhost:8080"
+if [ $? -ne 0 ];then
+  fail 'Url flag did not work'
 fi
 pass
 
@@ -113,7 +139,7 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 echo "$OUTPUT" | grep -q "Read more: https://en.wikipedia.org/wiki/Go"
 if [ $? -ne 0 ];then
-  fail 'Standard usage did not output link to page' 
+  fail 'Standard usage did not output link to page'
 fi
 pass
 
@@ -124,9 +150,9 @@ if [[ $STATUS -ne 0 ]]; then
   fail 'Did not get success exit code'
   exit 1
 fi
-OUTPUT2="echo "$OUTPUT" | grep -c '.'"
+OUTPUT2="$(echo $OUTPUT | grep -c '.')"
 if [ $OUTPUT2 -ne 1 ];then
-  fail 'Short flag did not work' 
+  fail 'Short flag did not work'
 fi
 pass
 
