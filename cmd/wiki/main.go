@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/mattn/go-colorable"
 	"github.com/walle/wiki"
 )
 
@@ -20,6 +21,8 @@ const (
 	ParsingErrorExitStatus = 4
 	SuccessExitStatus      = 0
 )
+
+var out = colorable.NewColorableStdout()
 
 func main() {
 	flag.Usage = func() {
@@ -129,7 +132,7 @@ func printPageShort(page *wiki.Page) {
 
 func printPageColor(page *wiki.Page) {
 	if page.Redirect != nil {
-		fmt.Printf(
+		fmt.Fprintf(out,
 			"\x1b[31m"+
 				"Redirected from "+
 				"\x1b[41;37m%s\x1b[49;31m to \x1b[41;37m%s"+
@@ -139,6 +142,6 @@ func printPageColor(page *wiki.Page) {
 			page.Redirect.To,
 		)
 	}
-	fmt.Println(page.Content)
-	fmt.Printf("\n\x1b[32mRead more: %s\x1b[0m\n", page.URL)
+	fmt.Fprintln(out, page.Content)
+	fmt.Fprintf(out, "\n\x1b[32mRead more: %s\x1b[0m\n", page.URL)
 }

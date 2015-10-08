@@ -15,6 +15,7 @@ default: $(BUILD_TARGET)
 all: clean test dist dist-src
 
 $(BUILD_TARGET): 
+	go get github.com/mattn/go-colorable
 	go build -o $(BUILD_TARGET) cmd/wiki/*.go
 
 clean:
