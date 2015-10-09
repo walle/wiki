@@ -1,2 +1,2 @@
-// Package wiki contains functionality to fetch extracts from a mediawiki api.
+// Package wiki contains functionality to fetch extracts from a MediaWiki api.
 package wiki
