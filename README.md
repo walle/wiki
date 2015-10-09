@@ -34,6 +34,10 @@ $ make install
 or just copy the man file in `_doc/wiki.1` to `/usr/local/share/man/man1` or
 where you keep your man files.
 
+### Dependencies
+
+* go-colorable https://github.com/mattn/go-colorable
+
 ## Usage
 
 To get a summary from Wikipedia in English just invoke the tool with a query.
@@ -106,7 +110,9 @@ $ uwiki physics
 
 ## Testing
 
-Run the tests using the make target test `make test`, this runs both the unit and the integration tests. For running only one type of tests use `go test -cover` and `./integration-tests.sh` respectively.
+Run the tests using the make target test `make test`, this runs both the unit and 
+the integration tests. For running only one type of tests use `go test -cover` 
+and `./integration-tests.sh` respectively.
 
 ```shell
 $ make test
@@ -121,7 +127,3 @@ info.
 
 The code is under the MIT license. See [LICENSE](LICENSE) for more
 information.
-
-## Authors
-
-The code is written by Fredrik Wallgren - https://github.com/walle
