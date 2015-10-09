@@ -59,6 +59,12 @@ To get a localized result, e.g. in Swedish use the -l flag.
 $ wiki -l sv ruby
 ```
 
+or using System Enviroment:
+
+```shell
+$ WIKI_LANG="sv" wiki ruby
+```
+
 Use the -h flag to see all options (or `man wiki` if you have it installed)
 
 ```shell
@@ -101,11 +107,18 @@ E.g. for bash. Add an alias to your `.bash_profile` or `.bashrc` file.
 ```bash
 alias uwiki='wiki -u https://en.wikiversity.org/w/api.php '
 ```
-
 And call it using
 
 ```shell
 $ uwiki physics
+```
+
+or using System Enviroment in your `.bash_profile` or `.bashrc`file.
+
+```bash
+echo "export WIKI_URL=https://en.wikiversity.org/w/api.php" >> .bashrc
+# reload shell / source .bashrc
+wiki physics
 ```
 
 ## Testing
