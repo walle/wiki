@@ -11,7 +11,7 @@ import (
 )
 
 // Version of the tool.
-const Version = "1.2.0"
+const Version = "1.3.0"
 
 // Exit statuses for the tool.
 const (

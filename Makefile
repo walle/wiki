@@ -1,7 +1,7 @@
 TARGET = wiki
 PREFIX ?= /usr/local
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
-VERSION="1.2.0"
+VERSION="1.3.0"
 BUILD_DIR="build"
 BUILD_TARGET="$(BUILD_DIR)/$(TARGET)"
 DIST="$(TARGET)-$(VERSION)"
