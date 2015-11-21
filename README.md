@@ -59,7 +59,7 @@ To get a localized result, e.g. in Swedish use the -l flag.
 $ wiki -l sv ruby
 ```
 
-or using System Enviroment:
+or using System Environment:
 
 ```shell
 $ WIKI_LANG="sv" wiki ruby
@@ -113,7 +113,7 @@ And call it using
 $ uwiki physics
 ```
 
-or using System Enviroment in your `.bash_profile` or `.bashrc`file.
+or using System Environment in your `.bash_profile` or `.bashrc`file.
 
 ```bash
 echo "export WIKI_URL=https://en.wikiversity.org/w/api.php" >> .bashrc
