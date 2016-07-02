@@ -1,7 +1,7 @@
 [![Build Status](https://img.shields.io/travis/walle/wiki.svg?style=flat)](https://travis-ci.org/walle/wiki)
 [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/walle/wiki)
 [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/walle/wiki/master/LICENSE)
-[![Go Report Card](http://goreportcard.com/badge/walle/wiki?t=3)](http:/goreportcard.com/report/walle/wiki)
+[![Go Report Card](https://goreportcard.com/badge/walle/wiki)](http:/goreportcard.com/report/walle/wiki)
 
 # wiki
 
