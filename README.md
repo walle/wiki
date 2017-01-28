@@ -86,6 +86,8 @@ Options:
         The api url (default "https://%s.wikipedia.org/w/api.php")
   -version
         Print version information and exit.
+  -w int
+        The width text should be wrapped at. 0 is no wrap.
 ```
 
 ### Use another wiki

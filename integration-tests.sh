@@ -156,4 +156,17 @@ if [ $OUTPUT2 -ne 1 ];then
 fi
 pass
 
+# Test that wrap flag works
+OUTPUT="$($BIN -w 80 golang)"
+STATUS=$?
+if [[ $STATUS -ne 0 ]]; then
+  fail 'Did not get success exit code'
+  exit 1
+fi
+OUTPUT2="$(echo $OUTPUT | grep -c '.')"
+if [ $OUTPUT2 -ne 1 ];then
+  fail 'Wrap flag did not work'
+fi
+pass
+
 finished

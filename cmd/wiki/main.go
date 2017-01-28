@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"os"
@@ -11,7 +12,7 @@ import (
 )
 
 // Version of the tool.
-const Version = "1.3.0"
+const Version = "1.4.0"
 
 // Exit statuses for the tool.
 const (
@@ -22,7 +23,7 @@ const (
 	SuccessExitStatus      = 0
 )
 
-var out = colorable.NewColorableStdout()
+var buf = bytes.NewBufferString("")
 
 func main() {
 	flag.Usage = func() {
@@ -48,6 +49,7 @@ Options:
 	noColor := flag.Bool("n", false, "If the output should not be colorized")
 	simple := flag.Bool("s", false, "If simple output should be used")
 	short := flag.Bool("short", false, "If short output should be used")
+	wrap := flag.Int("w", 0, "The width text should be wrapped at. 0 is no wrap.")
 	noCheckCert := flag.Bool(
 		"no-check-certificate",
 		false,
@@ -95,6 +97,16 @@ Options:
 		printPageColor(page)
 	}
 
+	out := colorable.NewColorableStdout()
+	if *wrap > 0 {
+		paragraphs := strings.Split(buf.String(), "\n\n")
+		for _, p := range paragraphs {
+			fmt.Fprintln(out, wiki.Wrap(p, *wrap), "\n")
+		}
+	} else {
+		fmt.Fprintln(out, buf.String())
+	}
+
 	os.Exit(SuccessExitStatus)
 }
 
@@ -123,26 +135,26 @@ func getPage(url, language *string, noCheckCert *bool) *wiki.Page {
 
 func printPagePlain(page *wiki.Page) {
 	if page.Redirect != nil {
-		fmt.Printf("Redirected from %s to %s\n\n",
+		fmt.Fprint(buf, "Redirected from %s to %s\n\n",
 			page.Redirect.From,
 			page.Redirect.To,
 		)
 	}
-	fmt.Println(page.Content)
-	fmt.Printf("\nRead more: %s\n", page.URL)
+	fmt.Fprintln(buf, page.Content)
+	fmt.Fprint(buf, "\nRead more: %s\n", page.URL)
 }
 
 func printPageSimple(page *wiki.Page) {
-	fmt.Println(page.Content)
+	fmt.Fprintln(buf, page.Content)
 }
 
 func printPageShort(page *wiki.Page) {
-	fmt.Println(page.Content[:strings.Index(page.Content, ".")+1])
+	fmt.Fprintln(buf, page.Content[:strings.Index(page.Content, ".")+1])
 }
 
 func printPageColor(page *wiki.Page) {
 	if page.Redirect != nil {
-		fmt.Fprintf(out,
+		fmt.Fprintf(buf,
 			"\x1b[31m"+
 				"Redirected from "+
 				"\x1b[41;37m%s\x1b[49;31m to \x1b[41;37m%s"+
@@ -152,6 +164,6 @@ func printPageColor(page *wiki.Page) {
 			page.Redirect.To,
 		)
 	}
-	fmt.Fprintln(out, page.Content)
-	fmt.Fprintf(out, "\n\x1b[32mRead more: %s\x1b[0m\n", page.URL)
+	fmt.Fprintln(buf, page.Content)
+	fmt.Fprintf(buf, "\n\x1b[32mRead more: %s\x1b[0m\n", page.URL)
 }

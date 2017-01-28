@@ -2,6 +2,7 @@ package wiki
 
 import (
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -36,7 +37,7 @@ func (r *Response) Page() (*Page, error) {
 		}
 		page.ID = p.Pageid
 		page.Title = p.Title
-		page.Content = p.Extract
+		page.Content = strings.Replace(p.Extract, "\n", "\n\n", -1)
 		page.Language = p.Pagelanguage
 		page.URL = url
 
