@@ -135,13 +135,13 @@ func getPage(url, language *string, noCheckCert *bool) *wiki.Page {
 
 func printPagePlain(page *wiki.Page) {
 	if page.Redirect != nil {
-		fmt.Fprint(buf, "Redirected from %s to %s\n\n",
+		fmt.Fprintf(buf, "Redirected from %s to %s\n\n",
 			page.Redirect.From,
 			page.Redirect.To,
 		)
 	}
 	fmt.Fprintln(buf, page.Content)
-	fmt.Fprint(buf, "\nRead more: %s\n", page.URL)
+	fmt.Fprintf(buf, "\nRead more: %s\n", page.URL)
 }
 
 func printPageSimple(page *wiki.Page) {
