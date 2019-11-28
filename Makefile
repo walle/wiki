@@ -14,8 +14,7 @@ DIST_SRC_TARGET="$(DIST_SRC).tar.gz"
 default: $(BUILD_TARGET)
 all: clean test dist dist-src
 
-$(BUILD_TARGET): 
-	go get github.com/mattn/go-colorable
+$(BUILD_TARGET):
 	go build -o $(BUILD_TARGET) cmd/wiki/*.go
 
 clean:
@@ -40,7 +39,7 @@ uninstall:
 dist: $(BUILD_TARGET)
 	mkdir $(DIST)
 	cp -r $(BUILD_TARGET) LICENSE README.md _doc $(DIST)
-	tar cfz $(DIST_TARGET) $(DIST)	
+	tar cfz $(DIST_TARGET) $(DIST)
 
 dist-src:
 	mkdir $(DIST_SRC)
