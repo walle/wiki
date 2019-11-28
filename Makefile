@@ -14,7 +14,7 @@ DIST_SRC_TARGET="$(DIST_SRC).tar.gz"
 default: $(BUILD_TARGET)
 all: clean test dist dist-src
 
-$(BUILD_TARGET):
+$(BUILD_TARGET): lint
 	go build -o $(BUILD_TARGET) cmd/wiki/*.go
 
 clean:
@@ -23,6 +23,14 @@ clean:
 	-rm -r $(DIST_TARGET)
 	-rm -r $(DIST_SRC)
 	-rm -r $(DIST_SRC_TARGET)
+
+# Install all the build and lint dependencies
+setup:
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh
+	go mod tidy
+
+lint: setup
+	./bin/golangci-lint run ./...
 
 test: $(BUILD_TARGET)
 	go test -cover

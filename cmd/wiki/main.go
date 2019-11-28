@@ -29,8 +29,7 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintln(os.Stderr, `wiki is a tool used to fetch excerpts from wikipedia
 Usage: wiki [options...] query
-Options:
-`)
+Options:`)
 		flag.PrintDefaults()
 	}
 
@@ -101,7 +100,7 @@ Options:
 	if *wrap > 0 {
 		paragraphs := strings.Split(buf.String(), "\n\n")
 		for _, p := range paragraphs {
-			fmt.Fprintln(out, wiki.Wrap(p, *wrap), "\n")
+			fmt.Fprintln(out, wiki.Wrap(p, *wrap))
 		}
 	} else {
 		fmt.Fprintln(out, buf.String())
@@ -135,13 +134,13 @@ func getPage(url, language *string, noCheckCert *bool) *wiki.Page {
 
 func printPagePlain(page *wiki.Page) {
 	if page.Redirect != nil {
-		fmt.Fprint(buf, "Redirected from %s to %s\n\n",
+		fmt.Println(buf, "Redirected from %s to %s\n\n",
 			page.Redirect.From,
 			page.Redirect.To,
 		)
 	}
 	fmt.Fprintln(buf, page.Content)
-	fmt.Fprint(buf, "\nRead more: %s\n", page.URL)
+	fmt.Println(buf, "\nRead more: %s\n", page.URL)
 }
 
 func printPageSimple(page *wiki.Page) {
