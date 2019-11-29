@@ -1,0 +1,19 @@
+run:
+  deadline: 60s
+
+linters:
+  enable-all: true
+
+linters-settings:
+  goimports:
+    local-prefixes: github.com/walle/wiki
+  maligned:
+    suggest-new: true
+  dupl:
+    threshold: 400
+  lll:
+    line-length: 80
+  gocyclo:
+    min-complexity: 15
+  golint:
+    min-confidence: 0.85

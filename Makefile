@@ -1,7 +1,7 @@
 TARGET = wiki
 PREFIX ?= /usr/local
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
-VERSION="1.3.0"
+VERSION="1.4.1"
 BUILD_DIR="build"
 BUILD_TARGET="$(BUILD_DIR)/$(TARGET)"
 DIST="$(TARGET)-$(VERSION)"
@@ -9,14 +9,13 @@ DIST_TARGET="$(DIST).tar.gz"
 DIST_SRC="$(TARGET)-src-$(VERSION)"
 DIST_SRC_TARGET="$(DIST_SRC).tar.gz"
 
-.PHONY: default all install uninstall dist dist-src clean
+.PHONY: default all install lint uninstall dist dist-src clean
 
 default: $(BUILD_TARGET)
 all: clean test dist dist-src
 
 $(BUILD_TARGET): 
-	go get github.com/mattn/go-colorable
-	go build -o $(BUILD_TARGET) cmd/wiki/*.go
+	CGO_ENABLED=0 go build -mod=vendor -ldflags "-w -X main.Version=${VERSION}" -o $(BUILD_TARGET) cmd/wiki/*.go
 
 clean:
 	-rm -r $(BUILD_DIR)
@@ -25,12 +24,15 @@ clean:
 	-rm -r $(DIST_SRC)
 	-rm -r $(DIST_SRC_TARGET)
 
+lint:
+	golangci-lint run ./...
+
 test: $(BUILD_TARGET)
-	go test -cover
+	go test -mod=vendor -cover
 	./integration-tests.sh
 
 install:
-	go install github.com/walle/wiki/cmd/wiki
+	go install -mod=vendor github.com/walle/wiki/cmd/wiki
 	install _doc/wiki.1 $(MANPREFIX)
 
 uninstall:

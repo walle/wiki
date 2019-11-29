@@ -34,10 +34,6 @@ $ make install
 or just copy the man file in `_doc/wiki.1` to `/usr/local/share/man/man1` or
 where you keep your man files.
 
-### Dependencies
-
-* go-colorable https://github.com/mattn/go-colorable
-
 ## Usage
 
 To get a summary from Wikipedia in English just invoke the tool with a query.

@@ -43,23 +43,24 @@ func NewRequest(baseURL, query, language string) (*Request, error) {
 }
 
 // Execute fetches the data and decodes it into a Response.
-// Returns an error if the data could not be retrived or the decoding fails.
+// Returns an error if the data could not be retrieved or the decoding fails.
 func (r *Request) Execute(noCheckCert bool) (*Response, error) {
 	client := &http.Client{}
 
 	if noCheckCert {
 		tr := &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, //nolint:gosec
 		}
 		client = &http.Client{Transport: tr}
 	}
 
-	data, err := client.Get(r.String())
+	response, err := client.Get(r.String())
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
-	d := json.NewDecoder(data.Body)
+	d := json.NewDecoder(response.Body)
 	resp := &Response{}
 	err = d.Decode(resp)
 	if err != nil {
